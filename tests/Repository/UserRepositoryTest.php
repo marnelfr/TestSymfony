@@ -16,9 +16,8 @@ class UserRepositoryTest extends KernelTestCase
 
     public function testCount(): void
     {
-        $kernel = self::bootKernel();
-        $container = $kernel->getContainer();
-        $repositoy = $container->get(UserRepository::class); //utiliser le container par defaut ne permet pas de recuperer les services privés
+        self::bootKernel();
+        $repositoy = self::$container->get(UserRepository::class); //utiliser le container par defaut ne permet pas de recuperer les services privés
         $totalUser = $repositoy->count([]);
         $this->assertEquals(10, $totalUser);
     }
