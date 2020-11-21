@@ -60,5 +60,21 @@ class InvitationCodeTest extends WebTestCase {
         self::assertCount(1, $errors);
     }
 
+    public function testInvalidBlankDescription() {
+        $code = (new InvitationCode())
+            ->setCode('12345')
+            ->setDescription('')
+            ->setExpireAt(new \DateTime())
+        ;
+
+        $errors = (self::bootKernel())
+            ->getContainer()
+            ->get('validator')
+            ->validate($code)
+        ;
+
+        self::assertCount(1, $errors);
+    }
+
 
 }

@@ -2,7 +2,10 @@
 
 
 Pour executer les tests, on lance la commande
-  `php bin/phpunit`
+>`php bin/phpunit`
+
+Possible de lancer des tests filtrer (quand on commence par en evoir des tonnes) en faisant par exemple
+>``php php/phpunit --filter UserTest``
 
 Les tests utilisent l'environnement de test configurable dans _config/packages/test_
 Et le fichier d'environnement **.env.test**
@@ -87,14 +90,13 @@ donc créer leur table dans la base de données.\
 Une fois l'entité *User* est en place, on peut déjà créer le *UserTest* pour le tester.\
 Ici, on peut juste hériter du **KernelTestCase** mais si on veut tester l'unicité des enregistrements 
 de la classe donc utiliser des *fixtures*, il faudra comme constater précédemment, hériter du **WebTestCase**.\
-Tester notre entité revient à tester les règles de validation donc 
-  - instancier l'entité
-  - recupérer le **validator** depuis le *container* (il faudra donc booter le kernel en premier lieu)
-  - valider l'instancer créer grâce à sa methode **validate()** qui renvoie les erreurs dans un tableau
-  - s'assurer que le nombre d'erreurs reçu est égale à zero
- 
-Possible de lancer des tests filtrer en faisant par exemple ``php php/phpunit --filter UserTest``
-      
+**Tester notre entité revient à tester ses règles de validation donc**
+  - instancier l'entité.
+  - recupérer le **validator** depuis le *container* (il faudra donc booter le kernel en premier lieu).
+  - valider l'instancer créer grâce à sa methode **validate()** qui renvoie les erreurs dans un tableau.
+  - s'assurer que le nombre d'erreurs reçu est égale à zéro.
+
+On comprend donc qu'on aura ici **autant de test que de règle de validation** dans nos entités.
       
       
       
