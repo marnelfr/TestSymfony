@@ -45,15 +45,15 @@ Lorsqu'on en hérite, on a\
 
 
 **Repository**\
-  Pour tester les repositories, il faut mettre en place les fixtures.\
-  *La doc:* https://symfony.com/doc/current/testing/database.html#dummy-data-fixtures\
-  Ou carrement tenir compte de l'article plutôt interressant : https://symfony.com/doc/current/testing/database.html#configuring-a-database-for-tests\
+  Pour tester les repositories, il faut mettre en place les fixtures. \
+  *La doc:* https://symfony.com/doc/current/testing/database.html#dummy-data-fixtures \
+  Ou carrement tenir compte de l'article plutôt interressant : https://symfony.com/doc/current/testing/database.html#configuring-a-database-for-tests \
   Là actu, j'ai fait\
     `composer require orm-fixtures`\
   Qui ajout **src/DataFixtures** dans lequel on peut declarer nos fixtures.\
     Ce sont des classes qui ont au moins la methode load() et qui héritent de
       `Doctrine\Bundle\FixturesBundle\Fixture`\
-  Alors nos fixtures étant en place, pour faire nos tests, il faudrait avoir une base de donnée configurable dans *.env.test*\
+  Alors nos fixtures étant en place, pour faire nos tests, il faudrait avoir une base de donnée configurable dans *.env.test* \
   - Après la créer\
     `php bin/console doctrine:database:create --env=test`\
   
@@ -98,9 +98,6 @@ de la classe donc utiliser des *fixtures*, il faudra comme constater précédemm
   - s'assurer que le nombre d'erreurs reçu est égale à zéro.
 
 On comprend donc qu'on aura ici **autant de test que de règle de validation** dans nos entités.
-      
-      
-      
       
       
       
