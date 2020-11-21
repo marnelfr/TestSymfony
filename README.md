@@ -119,9 +119,9 @@ Donc les tester reviendrait à vérifier que
   Pour ça, il faut s'assurer que le tableau retourné par le getSubscribedEvent() de notre subscriber
   contient bien en clé, l'évernement auquel notre subscriber devrait souscrire ;
   - **les méthodes sont appelés dans le bon ordre et convenablement** \
-  Pour ça, j'ai penser à mocker le subscriber lui-même, dispatcher l'event et faire une 
-  expectation sur l'appel d'un method after l'autre suivant les priorités mais
-  j'ai un avertissement suivant lequel une classe mokée ne peut fait appel à une methode static ;
+  Pour ça, j'ai pensé à mocker le subscriber lui-même, dispatché l'event et fait une 
+  expectation sur l'appel d'une method *after* l'autre suivant les priorités mais
+  j'ai un avertissement suivant lequel une classe mokée ne peut faire appel à une methode static ;
   - **les méthodes font bien les travaux qu'on leur demande** \
   Pour ça, vérifier le comportement de la methode une fois l'évernement dispatcher. \
   *Dans le cas d'un subscriber qui envoie de mail par exemple, on peut vérifier que le mail 
