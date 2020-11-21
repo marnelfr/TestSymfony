@@ -73,6 +73,23 @@ class ExceptionSubscriberTest extends TestCase
         $this->dispatch($mailer);
     }
 
+    public function testMethodesCallInAppropriatedOrder() {
+        $subscriber = $this->getMockBuilder(ExceptionSubscriber::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
+        $event = new ExceptionEvent($kernel, new Request(), 1, new \Exception('Hello World'));
+
+        $dispatcher = new EventDispatcher();
+        $dispatcher->addSubscriber($subscriber);
+        $subscriber->expects($this->once())->method('onKernelException2')->after('onKernelException');
+        $dispatcher->dispatch($event);
+
+
+    }
+
     private function dispatch($mailer) {
         $subscriber = new ExceptionSubscriber('from@nel.fr', 'to@nel.fr', $mailer);
 
