@@ -1,0 +1,27 @@
+Pour executer les tests, on lance la commande
+  php bin/phpunit
+
+Les tests utilisent l'environnement de test configurable dans config/packages/test
+Et le fichier d'environnement .env.test
+
+Dans symfony, les tests sont mis en place dans le dossier /tests qui correspond au namespace
+  App\Tests
+
+Le nom de nos classes de test doivent toujours se terminé par 'Test'
+Ex: AppTest.php => class: AppTest
+
+Nos classes de test peuvent hériter les classes
+  - PHPUnit/Framework/TestCase
+  - Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+      permet d'écrire des tests dans le constest du kernel permettant ainsi de demarrer notre application
+      symfony afin d'avoir accès au Kernel donc au Container
+  - Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+      permet de tester les controllers donc on pourra ici envoyé des requets et voir la réponse de l'application symfony
+
+
+Pour ecrire nos tests, on ajout donc à notre classe des methodes dont les noms commencent par 'test'
+Dans ses methodes, on a accès à plusieurs methodes comme
+  - assertEquals() qui permet de verifier que deux valeurs (un resultat et une opération) sont vraiment égales.
+
+
+
