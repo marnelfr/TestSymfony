@@ -38,9 +38,14 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     public function onKernelException(ExceptionEvent $event)
     {
+        $body = $event->getRequest()->getRequestUri() . "\n\n";
+        $body .= $event->getException()->getMessage() . "\n\n";
+        $body .= $event->getException()->getTraceAsString();
+
         $message = (new \Swift_Message())
             ->setTo($this->to)
             ->setFrom($this->from)
+            ->setBody($body)
         ;
         $this->mailer->send($message);
     }

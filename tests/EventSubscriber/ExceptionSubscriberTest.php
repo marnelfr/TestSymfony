@@ -74,4 +74,26 @@ class ExceptionSubscriberTest extends TestCase
         $dispatcher->dispatch($event);
     }
 
+    public function testMessageBodyContainsExceptionTrace() {
+        $mailer = $this->getMockBuilder(Swift_Mailer::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $subscriber = new ExceptionSubscriber('from@nel.fr', 'to@nel.fr', $mailer);
+        $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
+        $event = new ExceptionEvent($kernel, new Request(), 1, new \Exception('Hello World'));
+
+        $dispatcher = new EventDispatcher();
+        $dispatcher->addSubscriber($subscriber);
+        $mailer->expects(self::once())->method('send')->with(self::callback(
+            static function (\Swift_Message $message) {
+                return
+                    strpos($message->getBody(),'ExceptionSubscriberTest') &&
+                    strpos($message->getBody(), 'Hello World')
+                ;
+            }
+        ));
+        $dispatcher->dispatch($event);
+    }
+
 }
