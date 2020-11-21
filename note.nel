@@ -56,6 +56,11 @@ Repository
     php bin/console doctrine:fixtures:load --env=test
 Tout cela étant fait, nos données sont en place et on peut lancer nos tests
 
+Au lieu de charger nos fixtures par commandes dans le cadres de nos tests, on peut
+utiliser le LiipTestFixturesBundle : https://github.com/liip/LiipTestFixturesBundle
+  ça permet d'utiliser le Liip\TestFixturesBundle\Test\FixturesTrait pour charger nos fixtures directement au niveau de nos tests
+  grâce à la methode loadFixtures() qui reçoit un tableau des differents fixtures qu'on souhaite charger dans le cadre du test.
+
 
 
 

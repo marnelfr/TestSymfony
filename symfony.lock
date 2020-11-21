@@ -102,6 +102,9 @@
     "fig/link-util": {
         "version": "1.1.1"
     },
+    "liip/test-fixtures-bundle": {
+        "version": "1.0.0"
+    },
     "monolog/monolog": {
         "version": "1.25.5"
     },
