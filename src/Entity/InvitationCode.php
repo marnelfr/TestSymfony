@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\InvitationCodeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=InvitationCodeRepository::class)
@@ -19,6 +20,7 @@ class InvitationCode
 
     /**
      * @ORM\Column(type="string", length=5)
+     * @Assert\Regex("/^\d{5}$/")
      */
     private $code;
 

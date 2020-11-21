@@ -25,7 +25,23 @@ class InvitationCodeTest extends WebTestCase {
             ->get('validator')
             ->validate($code);
 
-        $this->assertCount(0, $errors);
+        self::assertCount(0, $errors);
+    }
+
+    public function testInvalidCode() {
+        $code = (new InvitationCode())
+            ->setCode('1d545')
+            ->setDescription('Test description')
+            ->setExpireAt(new \DateTime())
+        ;
+
+        $errors = (self::bootKernel())
+            ->getContainer()
+            ->get('validator')
+            ->validate($code)
+        ;
+
+        self::assertCount(1, $errors);
     }
 
 
