@@ -67,7 +67,7 @@ Tout cela étant fait, nos données sont en place et on peut lancer nos tests
       directement au niveau de nos tests.\
       Elle reçoit un tableau des differents fixtures qu'on souhaite charger dans le cadre du test.\
       **!!!Cependant cela ne semble marché qu'avec les WebTestCase**\
-        J'ai finalement continuer avec le **WebTestCase** comme beaucoup d'autres d'ailleurs sur le net.
+        J'ai finalement continué avec le **WebTestCase** comme beaucoup d'autres d'ailleurs sur le net.
   
   - **loadFixtureFiles()**\
       Pratiquement la même chose que la présendante jusque qu'elle permet de charger des fichiers plutôt que des classes.\
@@ -76,7 +76,7 @@ Tout cela étant fait, nos données sont en place et on peut lancer nos tests
       Un fichier en ***'Fixtures.yaml'*** peut quand même concerner plusieurs fichier en ***'Test.php'*** \
       Et enfin pour pouvoir les utiliser, on aura besoin de *alice-data-fixtures* installer en faisant\
       ``composer req theofidry/alice-data-fixtures``\
-      Pour mieux comprendre le fonctionnement de Alice: https://github.com/nelmio/alice\
+      Pour mieux comprendre le fonctionnement de Alice: https://github.com/nelmio/alice \
       ça permet l'utilisation des *php faker* : https://github.com/fzaninotto/Faker
       
   
