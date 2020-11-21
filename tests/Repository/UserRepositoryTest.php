@@ -20,7 +20,9 @@ class UserRepositoryTest extends WebTestCase
     public function testCount(): void
     {
         self::bootKernel();
-        $this->loadFixtures([UserFixtures::class]);
+        $this->loadFixtureFiles([
+            __DIR__ . '\UserRepositoryFixtures.yaml'
+        ]);
         $repository = self::$container->get(UserRepository::class); //utiliser le container par defaut ne permet pas de recuperer les services privés
         $totalUser = $repository->count([]);
         self::assertEquals(10, $totalUser);
