@@ -9,10 +9,13 @@
 namespace App\Tests\Entity;
 
 use App\Entity\InvitationCode;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\ConstraintViolation;
 
 class InvitationCodeTest extends WebTestCase {
+
+    use FixturesTrait;
 
     private function getEntity(): InvitationCode {
         return (new InvitationCode())
@@ -36,7 +39,7 @@ class InvitationCodeTest extends WebTestCase {
     }
 
     public function testValidEntity() {
-        $this->assertHasErrors($this->getEntity()->setCode(''), 0);
+        $this->assertHasErrors($this->getEntity(), 0);
     }
 
     public function testInvalidCode() {
@@ -50,6 +53,11 @@ class InvitationCodeTest extends WebTestCase {
 
     public function testInvalidBlankDescription() {
         $this->assertHasErrors($this->getEntity()->setDescription(''), 1);
+    }
+
+    public function testUniqueCode() {
+        $this->loadFixtureFiles([__DIR__ . '\InvitationCodeFixtures.yaml']);
+        $this->assertHasErrors($this->getEntity()->setCode('11111'), 1);
     }
 
 

@@ -5,7 +5,8 @@ Pour executer les tests, on lance la commande
 >`php bin/phpunit`
 
 Possible de lancer des tests filtrer (quand on commence par en evoir des tonnes) en faisant par exemple
->``php php/phpunit --filter UserTest``
+>``php php/phpunit --filter UserTest`` pour lancer les tests d'une classe donnée\
+>``php php/phpunit --filter testInvalidCode`` pour lancer un seul test donné
 
 Les tests utilisent l'environnement de test configurable dans _config/packages/test_
 Et le fichier d'environnement **.env.test**
@@ -76,7 +77,7 @@ Tout cela étant fait, nos données sont en place et on peut lancer nos tests
       Pratiquement la même chose que la présendante jusque qu'elle permet de charger des fichiers plutôt que des classes.\
       J'ai donc mis en place le fichier *UserRepositoryFixtures.yaml* devant contenir les fixtures du *UserRepositoryTest.php*\
       C'est dire pour nos fichier en ***'Test.php'***, on aura le fichier en ***'Fixtures.yaml'*** qui va avec.\
-      Un fichier en ***'Fixtures.yaml'*** peut quand même concerner plusieurs fichier en ***'Test.php'*** \
+      Un fichier en ***'Fixtures.yaml'*** peut quand même concerner plusieurs fichier en ***'Test.php'*** et vis-versa \
       Et enfin pour pouvoir les utiliser, on aura besoin de *alice-data-fixtures* installer en faisant\
       ``composer req theofidry/alice-data-fixtures``\
       Pour mieux comprendre le fonctionnement de Alice: https://github.com/nelmio/alice \
@@ -90,7 +91,7 @@ donc créer leur table dans la base de données.\
 Une fois l'entité *User* est en place, on peut déjà créer le *UserTest* pour le tester.\
 Ici, on peut juste hériter du **KernelTestCase** mais si on veut tester l'unicité des enregistrements 
 de la classe donc utiliser des *fixtures*, il faudra comme constater précédemment, hériter du **WebTestCase**.\
-**Tester notre entité revient à tester ses règles de validation donc**
+**Tester notre entité revient à tester ses règles de validation** donc :
   - instancier l'entité.
   - recupérer le **validator** depuis le *container* (il faudra donc booter le kernel en premier lieu).
   - valider l'instancer créer grâce à sa methode **validate()** qui renvoie les erreurs dans un tableau.

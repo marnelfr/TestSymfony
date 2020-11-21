@@ -1,0 +1,5 @@
+App\Entity\InvitationCode:
+  code:
+    code: "11111"
+    description: Test description
+    expire_at: <datetime("+2 year")>
