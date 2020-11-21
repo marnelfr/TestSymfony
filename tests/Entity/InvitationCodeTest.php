@@ -10,70 +10,46 @@ namespace App\Tests\Entity;
 
 use App\Entity\InvitationCode;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Validator\ConstraintViolation;
 
 class InvitationCodeTest extends WebTestCase {
 
-    public function testValidEntity() {
-        $code = (new InvitationCode())
+    private function getEntity(): InvitationCode {
+        return (new InvitationCode())
             ->setCode('12345')
             ->setDescription('Test description')
             ->setExpireAt(new \DateTime())
         ;
+    }
 
-        $errors = (self::bootKernel())
-            ->getContainer()
-            ->get('validator')
-            ->validate($code);
+    private function assertHasErrors(InvitationCode $code, int $number) {
+        self::bootKernel();
+        $errors = self::$container->get('validator')->validate($code);
 
-        self::assertCount(0, $errors);
+        $messages = [];
+        /** @var ConstraintViolation $error */
+        foreach ($errors as $error) {
+            $messages[] = '- ' . $error->getPropertyPath() . ' => ' . $error->getMessage();
+        }
+
+        self::assertCount($number, $errors, implode(', ', $messages));
+    }
+
+    public function testValidEntity() {
+        $this->assertHasErrors($this->getEntity()->setCode(''), 0);
     }
 
     public function testInvalidCode() {
-        $code = (new InvitationCode())
-            ->setCode('1d545')
-            ->setDescription('Test description')
-            ->setExpireAt(new \DateTime())
-        ;
-
-        $errors = (self::bootKernel())
-            ->getContainer()
-            ->get('validator')
-            ->validate($code)
-        ;
-
-        self::assertCount(1, $errors);
+        $this->assertHasErrors($this->getEntity()->setCode('1d562'), 1);
+        $this->assertHasErrors($this->getEntity()->setCode('1562'), 1);
     }
 
     public function testInvalidBlankCode() {
-        $code = (new InvitationCode())
-            ->setCode('')
-            ->setDescription('Test Description')
-            ->setExpireAt(new \DateTime())
-        ;
-
-        $errors = (self::bootKernel())
-            ->getContainer()
-            ->get('validator')
-            ->validate($code)
-        ;
-
-        self::assertCount(1, $errors);
+        $this->assertHasErrors($this->getEntity()->setCode(''), 1);
     }
 
     public function testInvalidBlankDescription() {
-        $code = (new InvitationCode())
-            ->setCode('12345')
-            ->setDescription('')
-            ->setExpireAt(new \DateTime())
-        ;
-
-        $errors = (self::bootKernel())
-            ->getContainer()
-            ->get('validator')
-            ->validate($code)
-        ;
-
-        self::assertCount(1, $errors);
+        $this->assertHasErrors($this->getEntity()->setDescription(''), 1);
     }
 
 
