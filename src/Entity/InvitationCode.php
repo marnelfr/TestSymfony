@@ -20,7 +20,8 @@ class InvitationCode
 
     /**
      * @ORM\Column(type="string", length=5)
-     * @Assert\Regex("/^\d{5}$/")
+     * @Assert\Regex("/^\d{5}$/", message="Le code doit être de 5 chiffres")
+     * @Assert\NotBlank(message="Le code ne peut être vide")
      */
     private $code;
 
