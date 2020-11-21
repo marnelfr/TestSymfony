@@ -38,7 +38,10 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     public function onKernelException(ExceptionEvent $event)
     {
-        $message = new \Swift_Message();
+        $message = (new \Swift_Message())
+            ->setTo($this->to)
+            ->setFrom($this->from)
+        ;
         $this->mailer->send($message);
     }
 }

@@ -110,10 +110,13 @@ On comprend donc qu'on aura ici **autant de test que de règle de validation** d
 Les subscribers écoutent une serie d'évernement et déclanchent une ou plusieurs méthodes lorsque 
 ses évernements ont lieu, parfois avec une notion de priorité pour définir l'ordre. \
 Donc les tester reviendrait à vérifier que
-  - **on s'abonne aux bon évernements** ;
-  - **les méthodes sont appelés dans le bon ordre et convenablement** ;
+  - **on s'abonne au bon évernements**
+  Pour ça, il faut s'assurer que le tableau retourner par le getSubscribedEvent() de notre subscriber
+  contient bien en clé, l'évernement auquel notre subscriber devrait souscrire ;
+  - **les méthodes sont appelés dans le bon ordre et convenablement** 
   - **les méthodes font bien les travaux qu'on leur demande** ;
-  - **les services tiers sont bien appelés** dans les cas où l'event subscriber en utilise.
+  - **les services tiers sont bien appelés** dans les cas où l'event subscriber en utilise. \
+  Pour ça, on en crée des mocks et on fait des expectations sur l'appel de leur methodes utilisées.
 
 Déjà pour créer un event subscriber, 
   - on fait ``php bin/console make:subscriber`` \
