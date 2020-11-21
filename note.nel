@@ -15,6 +15,7 @@ Nos classes de test peuvent hériter les classes
   - Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
       permet d'écrire des tests dans le constest du kernel permettant ainsi de demarrer notre application
       symfony afin d'avoir accès au Kernel donc au Container
+      Dans quand on a besoin de differents composants de symfony au niveau de nos tests, il faut toujours penser à l'etendre.
   - Symfony\Bundle\FrameworkBundle\Test\WebTestCase
       permet de tester les controllers donc on pourra ici envoyé des requets et voir la réponse de l'application symfony
 
@@ -22,6 +23,53 @@ Nos classes de test peuvent hériter les classes
 Pour ecrire nos tests, on ajout donc à notre classe des methodes dont les noms commencent par 'test'
 Dans ses methodes, on a accès à plusieurs methodes comme
   - assertEquals() qui permet de verifier que deux valeurs (un resultat et une opération) sont vraiment égales.
+
+
+
+KernelTestCase
+Lorsqu'on en hérite, on peut
+  self::bootKernel();
+    Permet de demarer le kernel afin de l'utiliser. Retourne le kernel
+    A parti du kernel on peut alors recuperer ce qu'on veut, le container par exemple
+
+  self::$container;
+    Renvoie un container legerement modifier qui permet d'avoir accès même aux services privés pour faciliter nos tests.
+
+
+
+
+Repository
+  Pour tester les repositories, il faut mettre en place les fixtures.
+  Pour les installer, il faut visiter le lien https://symfony.com/doc/current/testing/database.html#dummy-data-fixtures
+  Ou carrement tenir compte de l'article plutot interressant : https://symfony.com/doc/current/testing/database.html#configuring-a-database-for-tests
+  Là actu, j'ai fait
+    composer require orm-fixtures
+  ça ajout src/DataFixtures dans lequel on peut declarer nos fixtures.
+    Ce sont des classes qui ont au moins la methode load() et qui héritent de
+      Doctrine\Bundle\FixturesBundle\Fixture
+  Alors nos fixtures étant en place, pour faire nos tests, il faudrait avoir une base de donnée configurable dans .env.test
+  Après la créer
+    php bin/console doctrine:database:create --env=test
+  La mettre à jour
+    php bin/console doctrine:schema:update --dump-sql --force --env=test
+  Charger nos fixutres
+    php bin/console doctrine:fixtures:load --env=test
+Tout cela étant fait, nos données sont en place et on peut lancer nos tests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
