@@ -32,7 +32,8 @@ Dans ses methodes, on a accès à plusieurs methodes comme
   - **assertEquals()** qui permet de vérifier que deux valeurs (un résultat et une opération) sont vraiment égales ;
   - **assertCount()** qui permet de vérifier la taille d'un tableau par exemple. Il reçoit en premier,
   la taille espérer et en deuxième le tableau ;
-  - **assertGreaterThan()** qui permet de s'assurer qu'une valeur est suppérieur à une autre.
+  - **assertGreaterThan()** qui permet de s'assurer qu'une valeur est suppérieur à une autre ; ...
+Et 187 autres méthodes du genre disponibles dans ``PHPUnit\Framework\Assert``
 
 
 
