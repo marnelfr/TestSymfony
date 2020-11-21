@@ -107,7 +107,12 @@ On comprend donc qu'on aura ici **autant de test que de règle de validation** d
       
       
 **EventSubscriber** \
-Les subscribers écoutent une serie d'évernement et déclanchent une ou plusieurs méthodes lorsque 
+Déjà pour créer un event subscriber, 
+  - on fait ``php bin/console make:subscriber``
+  - on renseigne le nom de l'event subscriber
+  - on choisir l'evernement auquel on veut souscrire.
+  
+Alors, les subscribers écoutent une serie d'évernement et déclanchent une ou plusieurs méthodes lorsque 
 ses évernements ont lieu, parfois avec une notion de priorité pour définir l'ordre. \
 Donc les tester reviendrait à vérifier que
   - **on s'abonne au bon évernements** \
@@ -125,10 +130,6 @@ Donc les tester reviendrait à vérifier que
   - **les services tiers sont bien appelés** dans les cas où l'event subscriber en utilise. \
   Pour ça, on en crée des mocks et on fait des expectations sur l'appel de leur methodes qu'on a utilisé.
 
-Déjà pour créer un event subscriber, 
-  - on fait ``php bin/console make:subscriber`` \
-  - on renseigne le nom de l'event subscriber
-  - on choisir l'evernement auquel on veut souscrire.
 
       
       
