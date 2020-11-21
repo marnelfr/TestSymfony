@@ -25,11 +25,8 @@ class ExceptionSubscriberTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        $subscriber = new ExceptionSubscriber('from@nel.fr', 'to@nel.fr', $mailer);
-        $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
-        $event = new ExceptionEvent($kernel, new Request(), 1, new \Exception());
         $mailer->expects(self::once())->method('send');
-        $subscriber->onKernelException($event);
+        $this->dispatch($mailer);
     }
 
     /**
@@ -40,14 +37,8 @@ class ExceptionSubscriberTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        $subscriber = new ExceptionSubscriber('from@nel.fr', 'to@nel.fr', $mailer);
-        $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
-        $event = new ExceptionEvent($kernel, new Request(), 1, new \Exception());
-
-        $dispatcher = new EventDispatcher();
-        $dispatcher->addSubscriber($subscriber);
         $mailer->expects($this->once())->method('send');
-        $dispatcher->dispatch($event);
+        $this->dispatch($mailer);
     }
 
     public function testSendMailToAdminOnException() {
@@ -55,13 +46,6 @@ class ExceptionSubscriberTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        $subscriber = new ExceptionSubscriber('from@nel.fr', 'to@nel.fr', $mailer);
-        $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
-        $event = new ExceptionEvent($kernel, new Request(), 1, new \Exception());
-
-        $dispatcher = new EventDispatcher();
-        $dispatcher->addSubscriber($subscriber);
-
         $mailer->expects(self::once())->method('send')->with(
             self::callback(static function (\Swift_Message $message) {
                 return
@@ -70,8 +54,7 @@ class ExceptionSubscriberTest extends TestCase
                 ;
             })
         );
-
-        $dispatcher->dispatch($event);
+        $this->dispatch($mailer);
     }
 
     public function testMessageBodyContainsExceptionTrace() {
@@ -79,12 +62,6 @@ class ExceptionSubscriberTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        $subscriber = new ExceptionSubscriber('from@nel.fr', 'to@nel.fr', $mailer);
-        $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
-        $event = new ExceptionEvent($kernel, new Request(), 1, new \Exception('Hello World'));
-
-        $dispatcher = new EventDispatcher();
-        $dispatcher->addSubscriber($subscriber);
         $mailer->expects(self::once())->method('send')->with(self::callback(
             static function (\Swift_Message $message) {
                 return
@@ -93,6 +70,17 @@ class ExceptionSubscriberTest extends TestCase
                 ;
             }
         ));
+        $this->dispatch($mailer);
+    }
+
+    private function dispatch($mailer) {
+        $subscriber = new ExceptionSubscriber('from@nel.fr', 'to@nel.fr', $mailer);
+
+        $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
+        $event = new ExceptionEvent($kernel, new Request(), 1, new \Exception('Hello World'));
+
+        $dispatcher = new EventDispatcher();
+        $dispatcher->addSubscriber($subscriber);
         $dispatcher->dispatch($event);
     }
 
