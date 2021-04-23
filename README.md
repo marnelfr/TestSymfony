@@ -1,4 +1,4 @@
-**"# TestSymfony"**
+# TestSymfony
 
 
 Pour executer les tests, on lance la commande
