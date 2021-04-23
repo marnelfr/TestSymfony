@@ -1,4 +1,4 @@
-# TestSymfony
+# Symfony Testing
 
 
 Pour executer les tests, on lance la commande
